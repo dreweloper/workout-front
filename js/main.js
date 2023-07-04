@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+    
     // VARIABLES
 
     const fragment = document.createDocumentFragment();
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subtitle.innerText = item.subtitle;
 
             const anchor = document.createElement('A');
-            anchor.href = '/notebook.html';
+            anchor.href = '../pages/notebook.html';
             anchor.innerHTML = `<span class="material-symbols-rounded"> arrow_right_alt </span>`;
 
             header.append(title, subtitle);
