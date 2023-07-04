@@ -76,7 +76,7 @@
     overflow: hidden;
 }
 
-#toggle-expand {
+.jupiter-notebook button {
     position: absolute;
     right: 0;
     display: flex;
@@ -85,8 +85,9 @@
     color: var(--white);
 }
 
-#toggle-expand span {
+.jupiter-notebook button span {
     margin-left: 5px;
+    cursor: pointer;
 }
 
 .jupiter-notebook div {
