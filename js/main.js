@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sectionPills = document.querySelector('#workout-pills');
 
+    const mainNotebook = document.querySelectorAll('.notebook-main');
+
 
     // EVENTS
 
@@ -94,7 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         data.forEach(item => {
 
-            console.log(item);
+            const header = document.createElement('HEADER');
+            header.classList.add('notebook-header');
+
+            const divHeader = document.createElement('DIV');
+            divHeader.classList.add('notebook-header-title');
+
+            const anchorHeader = document.createElement('A');
+            
 
         })
 
