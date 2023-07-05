@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const fragment = document.createDocumentFragment();
 
-    const sectionPills = document.querySelector('#workout-pills');
-    const mainNotebook = document.querySelector('.notebook-main');
+    const mainNotebook = document.querySelector('#notebook-main');
     const mainWorkout = document.querySelector('#workout-main');
 
 
@@ -47,15 +46,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const [response] = await fetchAPI();
 
-        console.log(response);
+
+        // HEADER
+
+        const header = document.createElement('HEADER');
+        header.classList.add('workout-main-header');
+
+        const title = document.createElement('H1');
+        title.innerText = response.title;
+
+        const subtitle = document.createElement('P');
+        subtitle.innerText = response.subtitle;
+
+        header.append(title, subtitle);
 
 
+        // SECTION
+
+        const section = document.createElement('SECTION');
+        section.id = 'workout-pills';
 
 
-        // PILLS
+        // SECTION > HEADER (MENU)
 
-        const { pills } = response;
+        const { menu } = response; // Destructuración de la propiedad 'menu' del objeto 'response'.
 
+        const headerMenu = document.createElement('HEADER');
+
+        const divMenu = document.createElement('DIV');
+        divMenu.classList.add('workout-pills-header-container');
+
+        const titleMenu = document.createElement('H2');
+        titleMenu.innerHTML = `${menu.title} <span class="material-symbols-rounded">arrow_downward_alt</span>`;
+
+        divMenu.append(titleMenu);
+
+        const subtitleMenu = document.createElement('P');
+        menu.subtitle ? subtitleMenu.innerText = menu.subtitle : subtitleMenu.classList.add('hidden');
+
+        headerMenu.append(divMenu, subtitleMenu);
+
+
+        // SECTION > ARTICLES (PILLS)
+
+        const { pills } = response; // Destructuración de la propiedad 'pills' del objeto 'response'.
 
         pills.forEach(item => {
 
@@ -86,7 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         });
 
-        sectionPills.append(fragment);
+        section.append(headerMenu, fragment);
+
+        mainWorkout.append(header, section);
 
     }; //!FUNC-RENDERINDEX
 
