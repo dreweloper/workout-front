@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const fragment = document.createDocumentFragment();
 
-    const sectionPills = document.querySelector('#workout-pills');
-    const mainNotebook = document.querySelector('.notebook-main');
+    const mainNotebook = document.querySelector('#notebook-main');
+    const mainWorkout = document.querySelector('#workout-main');
+
 
 
     // FUNCTIONS
@@ -22,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
 
-                const { pills } = response;
+                const { data } = response;
 
-                return pills;
+                return data;
 
             } else {
 
@@ -43,45 +44,94 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderIndex = async () => {
 
-        const data = await fetchAPI();
+        const [response] = await fetchAPI();
 
-        data.forEach(item => {
 
-            const articleClosed = document.createElement('ARTICLE');
-            articleClosed.id = item.id;
-            articleClosed.classList.add('closed-pill');
+        // HEADER
 
-            const header = document.createElement('HEADER');
+        const header = document.createElement('HEADER');
+        header.classList.add('workout-main-header');
 
-            const title = document.createElement('H3');
-            title.innerText = item.title;
+        const title = document.createElement('H1');
+        title.innerText = response.title;
 
-            const subtitle = document.createElement('P');
-            subtitle.innerText = item.subtitle;
+        const subtitle = document.createElement('P');
+        subtitle.innerText = response.subtitle;
 
-            const anchor = document.createElement('A');
-            anchor.dataset['id'] = item.id;
-            anchor.href = `/notebook.html?${item.id}`;
-            anchor.innerHTML = `<span class="material-symbols-rounded"> arrow_right_alt </span>`;
+        header.append(title, subtitle);
 
-            header.append(title, subtitle);
 
-            articleClosed.append(header, anchor);
+        // SECTION
 
-            fragment.append(articleClosed);
+        const section = document.createElement('SECTION');
+        section.id = 'workout-pills';
+
+
+        // SECTION > HEADER (MENU)
+
+        const { menu } = response; // Destructuración de la propiedad 'menu' del objeto 'response'.
+
+        const headerMenu = document.createElement('HEADER');
+
+        const divMenu = document.createElement('DIV');
+        divMenu.classList.add('workout-pills-header-container');
+
+        const titleMenu = document.createElement('H2');
+        titleMenu.innerHTML = `${menu.title} <span class="material-symbols-rounded">arrow_downward_alt</span>`;
+
+        divMenu.append(titleMenu);
+
+        const subtitleMenu = document.createElement('P');
+        menu.subtitle ? subtitleMenu.innerText = menu.subtitle : subtitleMenu.classList.add('hidden');
+
+        headerMenu.append(divMenu, subtitleMenu);
+
+
+        // SECTION > ARTICLES (PILLS)
+
+        const { pills } = response; // Destructuración de la propiedad 'pills' del objeto 'response'.
+
+        pills.forEach(item => {
+
+            const articlePill = document.createElement('ARTICLE');
+            articlePill.id = item.id;
+            articlePill.classList.add('closed-pill');
+
+            const headerPill = document.createElement('HEADER');
+
+            const titlePill = document.createElement('H3');
+            titlePill.innerText = item.title;
+
+            const subtitlePill = document.createElement('P');
+            subtitlePill.innerText = item.subtitle;
+
+            headerPill.append(titlePill, subtitlePill);
+
+            const anchorPill = document.createElement('A');
+            anchorPill.dataset['id'] = item.id;
+            anchorPill.href = `/notebook.html?${item.id}`;
+            anchorPill.innerHTML = `<span class="material-symbols-rounded"> arrow_right_alt </span>`;
+
+            articlePill.append(headerPill, anchorPill);
+
+            // FRAGMENT
+
+            fragment.append(articlePill);
 
         });
 
-        sectionPills.append(fragment);
+        section.append(headerMenu, fragment);
+
+        mainWorkout.append(header, section);
 
     }; //!FUNC-RENDERINDEX
 
 
     const renderNotebook = async (id) => {
 
-        const response = await fetchAPI();
+        const [{ pills }] = await fetchAPI();
 
-        const data = response.filter(item => item.id == id);
+        const data = pills.filter(item => item.id == id);
 
 
         data.forEach(item => {
@@ -107,19 +157,19 @@ document.addEventListener('DOMContentLoaded', () => {
             subtitleHeader.innerText = item.subtitle;
 
             header.append(divHeader, subtitleHeader);
-           
+
             // MAIN - SECTION
 
             const section = document.createElement('SECTION');
             section.classList.add('notebook-container');
-            
+
             // JUPYTER NOTEBOOK
 
             const divNotebook = document.createElement('DIV');
             divNotebook.classList.add('jupiter-notebook');
 
             const iframe = document.createElement('IFRAME');
-            item.url_iframe_notebook ? iframe.src = item.url_iframe_notebook: iframe.classList.add('hidden');
+            item.url_iframe_notebook ? iframe.src = item.url_iframe_notebook : iframe.classList.add('hidden');
 
             const buttonMaximize = document.createElement('BUTTON');
             buttonMaximize.classList.add('toggle-maximize');
@@ -144,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // BUTTONS PAGINATION START
 
-            const { anchorPrev, anchorNext } = buttonsPagination(id, response);
+            const { anchorPrev, anchorNext } = buttonsPagination(id, pills);
 
             // BUTTONS PAGINATION END
 
@@ -153,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
             anchorSlack.innerText = 'Tengo una duda';
 
             const anchorPDF = document.createElement('A');
-            if(item.url_pdf){
+            if (item.url_pdf) {
                 anchorPDF.href = item.url_pdf;
                 anchorPDF.innerText = 'Descargar PDF';
             } else {
@@ -161,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             const anchorChallenge = document.createElement('A');
-            if(item.url_challenge){
+            if (item.url_challenge) {
                 anchorChallenge.href = item.url_challenge;
                 anchorChallenge.innerText = 'Abrir Challenge';
             } else {
@@ -183,16 +233,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }; //!FUNC-RENDERNOTEBOOK
 
 
-    const buttonsPagination = (id, response) => {
+    const buttonsPagination = (id, pills) => {
 
         const nextPage = parseInt(id) + 1;
 
         const prevPage = parseInt(id) - 1;
 
-        const index = response.findIndex(item => item.id == id);
+        const index = pills.findIndex(item => item.id == id);
 
         const anchorPrev = document.createElement('A');
-        if(index > 0){
+        if (index > 0) {
             anchorPrev.href = `/notebook.html?${prevPage}`;
             anchorPrev.innerText = 'Volver al anterior';
         } else {
@@ -200,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const anchorNext = document.createElement('A');
-        if(index < response.length - 1){
+        if (index < pills.length - 1) {
             anchorNext.href = `/notebook.html?${nextPage}`;
             anchorNext.innerText = 'Ir al siguiente';
         } else {
@@ -214,10 +264,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const init = () => {
 
-        if (location.href.includes('notebook')){
+        if (location.href.includes('notebook')) {
 
             const id = location.search.substring(1);
-            
+
             return renderNotebook(id);
 
         } else {
