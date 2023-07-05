@@ -166,20 +166,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // JUPYTER NOTEBOOK
 
             const divNotebook = document.createElement('DIV');
-            divNotebook.classList.add('jupiter-notebook');
+            divNotebook.classList.add('jupyter-notebook');
 
             const iframe = document.createElement('IFRAME');
             item.url_iframe_notebook ? iframe.src = item.url_iframe_notebook : iframe.classList.add('hidden');
 
+            //! A la espera de confirmar si siempre existirá o iframe o video.
+            // Si no hay iframe de Jupyter Notebook, el vídeo se renderiza en su lugar y no en la card ('article').
+            const divVideoNotebook = document.createElement('DIV');
+            item.url_iframe_notebook ? divVideoNotebook.classList.add('hidden') : divVideoNotebook.innerHTML = item.url_iframe_vimeo;
+
             const buttonMaximize = document.createElement('BUTTON');
-            buttonMaximize.classList.add('toggle-maximize');
+            item.url_iframe_notebook ? buttonMaximize.classList.add('toggle-maximize') : buttonMaximize.classList.add('hidden'); // Si no hay iframe de Jupyter Notebook, no se renderizará el botón
             buttonMaximize.innerHTML = `Expandir <span class="material-symbols-rounded toggle-maximize">open_in_new</span>`;
 
             const buttonMinimize = document.createElement('BUTTON');
             buttonMinimize.classList.add('toggle-minimize', 'hidden');
             buttonMinimize.innerHTML = `Minimizar <span class="material-symbols-rounded toggle-minimize">minimize</span>`;
 
-            divNotebook.append(iframe, buttonMaximize, buttonMinimize);
+            divNotebook.append(iframe, divVideoNotebook, buttonMaximize, buttonMinimize);
 
             // ARTICLE - CARD
 
@@ -189,8 +194,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const titleCard = document.createElement('H3');
             titleCard.innerText = item.title;
 
-            const divVideo = document.createElement('DIV');
-            item.url_iframe_vimeo ? divVideo.innerHTML = item.url_iframe_vimeo : divVideo.classList.add('hidden');
+            // Si hay iframe de Vimeo e iframe de Jupyter Notebook, entonces se renderiza en la card.
+            const divVideoCard = document.createElement('DIV');
+            item.url_iframe_vimeo && item.url_iframe_notebook ? divVideoCard.innerHTML = item.url_iframe_vimeo : divVideoCard.classList.add('hidden');
 
             // BUTTONS PAGINATION START
 
@@ -218,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 anchorChallenge.classList.add('hidden');
             };
 
-            article.append(titleCard, divVideo, anchorPrev, anchorNext, anchorSlack, anchorPDF, anchorChallenge);
+            article.append(titleCard, divVideoCard, anchorPrev, anchorNext, anchorSlack, anchorPDF, anchorChallenge);
 
             section.append(divNotebook, article);
 
