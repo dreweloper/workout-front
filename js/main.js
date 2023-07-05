@@ -112,13 +112,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const init = () => {
 
-        if (location.href.includes('index')) renderPills();
-
         if (location.href.includes('notebook')){
 
             const id = location.search.substring(1);
             
-            renderNotebook(id);
+            return renderNotebook(id);
+
+        } else {
+
+            renderPills();
 
         };
 
