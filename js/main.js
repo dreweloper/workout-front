@@ -5,8 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fragment = document.createDocumentFragment();
 
     const sectionPills = document.querySelector('#workout-pills');
-    const mainNotebook = document.querySelectorAll('.notebook-main');
-
+    const mainNotebook = document.querySelector('.notebook-main');
 
 
     // FUNCTIONS
@@ -42,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }; //!FUNC-FETCHAPI
 
 
-    const renderPills = async () => {
+    const renderIndex = async () => {
 
         const data = await fetchAPI();
 
@@ -75,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sectionPills.append(fragment);
 
-    }; //!FUNC-RENDERPILLS
+    }; //!FUNC-RENDERINDEX
 
 
     const renderNotebook = async (id) => {
@@ -84,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const data = response.filter(item => item.id == id);
 
-        console.log(response);
 
         data.forEach(item => {
 
@@ -125,18 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const buttonMaximize = document.createElement('BUTTON');
             buttonMaximize.classList.add('toggle-maximize');
-            buttonMaximize.innerHTML = `<span class="material-symbols-rounded toggle-maximize">open_in_new</span>`;
+            buttonMaximize.innerHTML = `Expandir <span class="material-symbols-rounded toggle-maximize">open_in_new</span>`;
 
             const buttonMinimize = document.createElement('BUTTON');
-            buttonMinimize.classList.add('toggle-minimize hidden');
-            buttonMinimize.innerHTML = `<span class="material-symbols-rounded toggle-minimize">minimize</span>`;
+            buttonMinimize.classList.add('toggle-minimize', 'hidden');
+            buttonMinimize.innerHTML = `Minimizar <span class="material-symbols-rounded toggle-minimize">minimize</span>`;
 
             divNotebook.append(iframe, buttonMaximize, buttonMinimize);
 
             // ARTICLE - CARD
 
             const article = document.createElement('ARTICLE');
-            article.classList.add('notebook-card');
+            article.id = 'notebook-card';
 
             const titleCard = document.createElement('H3');
             titleCard.innerText = item.title;
@@ -147,9 +145,11 @@ document.addEventListener('DOMContentLoaded', () => {
             //! PAGINATION START
             const anchorNext = document.createElement('A');
             anchorNext.href = '#';
+            anchorNext.innerText = 'Ir al siguiente';
 
             const anchorPrev = document.createElement('A');
             anchorPrev.href = '#';
+            anchorPrev.innerText = 'Volver al anterior';
             //! PAGINATION END
 
             const anchorSlack = document.createElement('A');
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // FRAGMENT
 
-            fragment.append(section);
+            fragment.append(header, section);
 
         });
 
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } else {
 
-            renderPills();
+            renderIndex();
 
         };
 
