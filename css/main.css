@@ -246,31 +246,30 @@ img {
     margin-bottom: 48px;
 }
 
-.jupiter-notebook {
+.jupyter-notebook {
     position: relative;
     width: 100%;
-    min-width: 600px;
+    /* min-width: 600px;
     height: 730px;
-    background-color: var(--header-bg);
+    background-color: var(--header-bg); */
     overflow: hidden;
 }
 
-.jupiter-notebook button {
+.jupyter-notebook button {
     position: absolute;
     right: 0;
     display: flex;
     align-items: center;
     margin: 10px 10px 0 0;
-    color: var(--white);
     z-index: 100;
 }
 
-.jupiter-notebook button span {
+.jupyter-notebook button span {
     margin-left: 5px;
     cursor: pointer;
 }
 
-.jupiter-notebook div {
+.jupyter-notebook div {
     object-fit: contain;
 }
 
@@ -298,10 +297,34 @@ img {
 }
 
 #notebook-card a {
-    width: 375px;
+    width: 100%;
     padding: 16px;
     text-align: center;
     font-size: 1rem;
     font-weight: 700;
     border: 1px solid var(--black);
 }
+
+
+
+/* ***************************************/
+/* MEDIA QUERIES *************************/
+/* ***************************************/
+
+/* 992px *********************************/
+
+@media screen and (max-width:992px) {
+
+    .notebook-container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        margin-bottom: 48px;
+        gap: 12px;
+    }
+
+    #notebook-card h3 {
+        display: none;
+    }
+
+} /* 992px end */
