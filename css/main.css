@@ -47,7 +47,7 @@ img {
 /* CLASS SELECTORS */
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 
@@ -215,6 +215,11 @@ img {
     margin-top: 24px;
 }
 
+.notebook-header p {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
 .notebook-header-title {
     display: flex;
     align-items: center;
@@ -230,30 +235,6 @@ img {
 .notebook-header-title h1 {
     font-size: 2.5rem;
     font-weight: 700;
-}
-
-.notebook-header-description {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 600px;
-}
-
-.notebook-header-description p {
-    font-size: 1.5rem;
-    font-weight: 400;
-}
-
-.notebook-header-description a{
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-}
-
-.notebook-header-description a span {
-    font-size: 2rem;
-    margin-left: 10px;
 }
 
 /* MAIN > SECTION */
@@ -281,6 +262,7 @@ img {
     align-items: center;
     margin: 10px 10px 0 0;
     color: var(--white);
+    z-index: 100;
 }
 
 .jupiter-notebook button span {
@@ -308,7 +290,7 @@ img {
     font-size: 1.5rem;
 }
 
-.video-notebook {
+.video-notebook { /** PENDIENTE MODIFICAR */
     position:relative;
     width: 100%;
     max-width: 375px;
