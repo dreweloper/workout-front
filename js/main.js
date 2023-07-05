@@ -1,10 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // VARIABLES
 
     const fragment = document.createDocumentFragment();
-    
+
     const sectionPills = document.querySelector('#workout-pills');
+
+    const mainNotebook = document.querySelectorAll('.notebook-main');
+
+
+    // EVENTS
+
+    document.addEventListener('click', ({ target }) => {
+
+        
+
+    });
 
 
 
@@ -47,8 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         data.forEach(item => {
 
-            const article = document.createElement('ARTICLE');
-            article.classList.add('closed-pill');
+            const articleClosed = document.createElement('ARTICLE');
+            articleClosed.id = item.id;
+            articleClosed.classList.add('closed-pill');
 
             const header = document.createElement('HEADER');
 
@@ -59,14 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
             subtitle.innerText = item.subtitle;
 
             const anchor = document.createElement('A');
-            anchor.href = '../pages/notebook.html';
+            anchor.dataset['id'] = item.id;
+            anchor.href = `/notebook.html?${item.id}`;
             anchor.innerHTML = `<span class="material-symbols-rounded"> arrow_right_alt </span>`;
 
             header.append(title, subtitle);
 
-            article.append(header, anchor);
+            articleClosed.append(header, anchor);
 
-            fragment.append(article);
+            fragment.append(articleClosed);
 
         });
 
@@ -75,12 +88,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }; //!FUNC-RENDERPILLS
 
 
+    const renderNotebook = async (id) => {
+
+        const response = await fetchAPI();
+
+        const data = response.filter(item => item.id == id);
+
+        data.forEach(item => {
+
+            const header = document.createElement('HEADER');
+            header.classList.add('notebook-header');
+
+            const divHeader = document.createElement('DIV');
+            divHeader.classList.add('notebook-header-title');
+
+            const anchorHeader = document.createElement('A');
+            
+
+        })
+
+    }; //!FUNC-RENDERNOTEBOOK
+
+
     const init = () => {
 
-        renderPills();
+        if (location.href.includes('index')) renderPills();
+
+        if (location.href.includes('notebook')){
+
+            const id = location.search.substring(1);
+            
+            renderNotebook(id);
+
+        };
 
     }; //!FUNC-INIT
 
+
     init();
+
 
 }); //!LOAD
