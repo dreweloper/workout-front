@@ -142,15 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const divVideo = document.createElement('DIV');
             item.url_iframe_vimeo ? divVideo.innerHTML = item.url_iframe_vimeo : divVideo.classList.add('hidden');
 
-            //! PAGINATION START
-            const anchorNext = document.createElement('A');
-            anchorNext.href = '#';
-            anchorNext.innerText = 'Ir al siguiente';
+            // BUTTONS PAGINATION START
 
-            const anchorPrev = document.createElement('A');
-            anchorPrev.href = '#';
-            anchorPrev.innerText = 'Volver al anterior';
-            //! PAGINATION END
+            const { anchorPrev, anchorNext } = buttonsPagination(id, response);
+
+            // BUTTONS PAGINATION END
 
             const anchorSlack = document.createElement('A');
             anchorSlack.href = item.url_slack;
@@ -172,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 anchorChallenge.classList.add('hidden');
             };
 
-            article.append(titleCard, divVideo, anchorNext, anchorPrev, anchorSlack, anchorPDF, anchorChallenge);
+            article.append(titleCard, divVideo, anchorPrev, anchorNext, anchorSlack, anchorPDF, anchorChallenge);
 
             section.append(divNotebook, article);
 
@@ -185,6 +181,35 @@ document.addEventListener('DOMContentLoaded', () => {
         mainNotebook.append(fragment);
 
     }; //!FUNC-RENDERNOTEBOOK
+
+
+    const buttonsPagination = (id, response) => {
+
+        const nextPage = parseInt(id) + 1;
+
+        const prevPage = parseInt(id) - 1;
+
+        const index = response.findIndex(item => item.id == id);
+
+        const anchorPrev = document.createElement('A');
+        if(index > 0){
+            anchorPrev.href = `/notebook.html?${prevPage}`;
+            anchorPrev.innerText = 'Volver al anterior';
+        } else {
+            anchorPrev.classList.add('hidden');
+        };
+
+        const anchorNext = document.createElement('A');
+        if(index < response.length - 1){
+            anchorNext.href = `/notebook.html?${nextPage}`;
+            anchorNext.innerText = 'Ir al siguiente';
+        } else {
+            anchorNext.classList.add('hidden');
+        };
+
+        return { anchorPrev, anchorNext };
+
+    }; //!FUNC-BUTTONSPAGINATION
 
 
     const init = () => {
