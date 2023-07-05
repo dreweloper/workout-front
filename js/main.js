@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
 
-                const { pills } = response;
+                const { data } = response;
 
-                return pills;
+                return data;
 
             } else {
 
@@ -43,9 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderIndex = async () => {
 
-        const data = await fetchAPI();
+        const [ { pills } ] = await fetchAPI();
 
-        data.forEach(item => {
+
+        pills.forEach(item => {
 
             const articleClosed = document.createElement('ARTICLE');
             articleClosed.id = item.id;
@@ -79,9 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderNotebook = async (id) => {
 
-        const response = await fetchAPI();
+        const [ { pills } ] = await fetchAPI();
 
-        const data = response.filter(item => item.id == id);
+        const data = pills.filter(item => item.id == id);
 
 
         data.forEach(item => {
@@ -144,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // BUTTONS PAGINATION START
 
-            const { anchorPrev, anchorNext } = buttonsPagination(id, response);
+            const { anchorPrev, anchorNext } = buttonsPagination(id, pills);
 
             // BUTTONS PAGINATION END
 
@@ -183,13 +184,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }; //!FUNC-RENDERNOTEBOOK
 
 
-    const buttonsPagination = (id, response) => {
+    const buttonsPagination = (id, pills) => {
 
         const nextPage = parseInt(id) + 1;
 
         const prevPage = parseInt(id) - 1;
 
-        const index = response.findIndex(item => item.id == id);
+        const index = pills.findIndex(item => item.id == id);
 
         const anchorPrev = document.createElement('A');
         if(index > 0){
@@ -200,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const anchorNext = document.createElement('A');
-        if(index < response.length - 1){
+        if(index < pills.length - 1){
             anchorNext.href = `/notebook.html?${nextPage}`;
             anchorNext.innerText = 'Ir al siguiente';
         } else {
