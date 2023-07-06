@@ -272,7 +272,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (location.href.includes('notebook')) {
 
-            const id = location.search.substring(1);
+            console.log(location.search)
+
+            const id = location.search.replace('?', '');
 
             return renderNotebook(id);
 
