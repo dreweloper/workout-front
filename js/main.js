@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             item.url_iframe_notebook ? divVideoNotebook.classList.add('hidden') : divVideoNotebook.innerHTML = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/842517466?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Intro_Ejemplos_Aprendizaje_refuerzo_clip_1_c.mp4"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>';
 
             const buttonMaximize = document.createElement('BUTTON');
-            item.url_iframe_notebook ? buttonMaximize.classList.add('toggle-maximize') : buttonMaximize.classList.add('hidden'); // Si no hay iframe de Jupyter Notebook, no se renderizará el botón
+            buttonMaximize.classList.add('toggle-maximize');
             buttonMaximize.innerHTML = `Expandir <span class="material-symbols-rounded toggle-maximize">open_in_new</span>`;
 
             const buttonMinimize = document.createElement('BUTTON');
