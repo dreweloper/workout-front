@@ -169,12 +169,13 @@ document.addEventListener('DOMContentLoaded', () => {
             divNotebook.classList.add('jupyter-notebook');
 
             const iframe = document.createElement('IFRAME');
-            item.url_iframe_notebook ? iframe.src = item.url_iframe_notebook : iframe.classList.add('hidden');
+            // item.url_iframe_notebook ? iframe.src = item.url_iframe_notebook : iframe.classList.add('hidden');
+            item.url_iframe_notebook ? iframe.src = 'http://13.37.232.55/hub' : iframe.classList.add('hidden'); //! URL ESTÁTICA TEMPORAL
 
-            //! A la espera de confirmar si siempre existirá o iframe o video.
             // Si no hay iframe de Jupyter Notebook, el vídeo se renderiza en su lugar y no en la card ('article').
             const divVideoNotebook = document.createElement('DIV');
-            item.url_iframe_notebook ? divVideoNotebook.classList.add('hidden') : divVideoNotebook.innerHTML = item.url_iframe_vimeo;
+            // item.url_iframe_notebook ? divVideoNotebook.classList.add('hidden') : divVideoNotebook.innerHTML = item.url_iframe_vimeo; //! URL ESTÁTICA TEMPORAL
+            item.url_iframe_notebook ? divVideoNotebook.classList.add('hidden') : divVideoNotebook.innerHTML = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/842517466?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Intro_Ejemplos_Aprendizaje_refuerzo_clip_1_c.mp4"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>';
 
             const buttonMaximize = document.createElement('BUTTON');
             item.url_iframe_notebook ? buttonMaximize.classList.add('toggle-maximize') : buttonMaximize.classList.add('hidden'); // Si no hay iframe de Jupyter Notebook, no se renderizará el botón
@@ -196,7 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Si hay iframe de Vimeo e iframe de Jupyter Notebook, entonces se renderiza en la card.
             const divVideoCard = document.createElement('DIV');
-            item.url_iframe_vimeo && item.url_iframe_notebook ? divVideoCard.innerHTML = item.url_iframe_vimeo : divVideoCard.classList.add('hidden');
+            // item.url_iframe_vimeo && item.url_iframe_notebook ? divVideoCard.innerHTML = item.url_iframe_vimeo : divVideoCard.classList.add('hidden'); //! URL ESTÁTICA TEMPORAL
+            item.url_iframe_vimeo && item.url_iframe_notebook ? divVideoCard.innerHTML = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/842518072?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Intro_Elementos_Proceso_Aprendizaje_por_Refuerzo_clip_2_c.mp4"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' : divVideoCard.classList.add('hidden');
 
             // BUTTONS PAGINATION START
 
@@ -272,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (location.href.includes('notebook')) {
 
-            const id = location.search.substring(1);
+            const id = location.search.replace('?', '');
 
             return renderNotebook(id);
 
