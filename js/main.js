@@ -170,7 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const iframe = document.createElement('IFRAME');
             // item.url_iframe_notebook ? iframe.src = item.url_iframe_notebook : iframe.classList.add('hidden');
-            item.url_iframe_notebook ? iframe.src = 'http://13.37.232.55/hub' : iframe.classList.add('hidden'); //! URL ESTÁTICA TEMPORAL
+            // item.url_iframe_notebook ? iframe.src = 'http://13.37.232.55/hub' : iframe.classList.add('hidden'); //! URL ESTÁTICA TEMPORAL
+            item.url_iframe_notebook ? iframe.src = 'https://productoonline.thebridge.tech' : iframe.classList.add('hidden'); //! URL ESTÁTICA TEMPORAL
 
             // Si no hay iframe de Jupyter Notebook, el vídeo se renderiza en su lugar y no en la card ('article').
             const divVideoNotebook = document.createElement('DIV');
