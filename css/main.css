@@ -250,7 +250,7 @@ img {
 
 .jupyter-notebook {
     position: relative;
-    width: 100%;
+    width: 80%;
     /* min-width: 600px;
     height: 730px;
     background-color: var(--header-bg); */
@@ -281,10 +281,14 @@ img {
     display: flex;
     flex-direction: column;
     align-items: start;
-    width: 100%;
+    width: 20%;
     max-width: 375px;
     margin: 0 20px;
     gap: 10px;
+}
+
+#notebook-card > * {
+    width: 100%;
 }
 
 #notebook-card h3 {
@@ -292,14 +296,12 @@ img {
 }
 
 .video-notebook { /** PENDIENTE MODIFICAR */
-    position:relative;
-    width: 100%;
+    /* position:relative;
     max-width: 375px;
-    padding:56.25% 0 0 0;
+    padding:56.25% 0 0 0; */
 }
 
 #notebook-card a {
-    width: 100%;
     padding: 16px;
     text-align: center;
     font-size: 1rem;
@@ -323,6 +325,14 @@ img {
         justify-content: start;
         margin-bottom: 48px;
         gap: 12px;
+    }
+
+    .jupyter-notebook {
+        width: 100%;
+    }
+
+    #notebook-card {
+        width: 100%;
     }
 
     #notebook-card h3 {
