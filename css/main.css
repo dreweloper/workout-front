@@ -46,6 +46,16 @@ img {
 
 /* CLASS SELECTORS */
 
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
 .hidden {
     display: none !important;
 }
@@ -314,6 +324,43 @@ img {
     font-size: 1rem;
     font-weight: 700;
     border: 1px solid var(--black);
+}
+
+
+/********************/
+/* FORM *************/
+/********************/
+
+
+.form-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    min-height: calc(100vh - 50px);
+    gap: 24px;
+}
+
+.form-main form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 90%;
+    margin: 20px 0;
+    gap: 12px;
+}
+
+.form-main form > * {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--black);
+    border-radius: 5px;
+}
+
+.submit-button {
+    width: 200px !important;
 }
 
 

@@ -6,6 +6,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const mainNotebook = document.querySelector('#notebook-main');
     const mainWorkout = document.querySelector('#workout-main');
+    const mainForm = document.querySelector('#form-main');
+
+
+
+    // EVENTS
+
+    document.addEventListener('submit', (ev) => {
+
+        ev.preventDefault();
+
+        location.replace('/index.html');
+
+    });
 
 
 
@@ -242,6 +255,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }; //!FUNC-RENDERNOTEBOOK
 
 
+    const renderForm = async () => {
+
+        
+
+    }; //!FUNC-RENDERFORM
+
+
     const buttonsPagination = (id, pills) => {
 
         const nextPage = parseInt(id) + 1;
@@ -277,7 +297,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const id = location.search.replace('?', '');
 
-            return renderNotebook(id);
+            renderNotebook(id);
+
+        } else if (location.href.includes('form')) {
+
+            renderForm()
 
         } else {
 
