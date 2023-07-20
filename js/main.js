@@ -6,6 +6,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const mainNotebook = document.querySelector('#notebook-main');
     const mainWorkout = document.querySelector('#workout-main');
+    const mainForm = document.querySelector('#form-main');
+
+
+
+    // EVENTS
+
+    document.addEventListener('submit', (ev) => {
+
+        ev.preventDefault();
+
+        //todo:
+        //* Utilizar FormData
+        //? Duda con respecto a 'pills', ya que es un array de objetos. Tendré que crear primero ese array en otra función y luego pasárselo a FormData.
+        //? Se enviará mediante un fetch con 'POST'
+        //* Redirect una vez hecho todo: location.replace('/index.html');
+
+    });
 
 
 
@@ -171,7 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const iframe = document.createElement('IFRAME');
             // item.url_iframe_notebook ? iframe.src = item.url_iframe_notebook : iframe.classList.add('hidden');
             // item.url_iframe_notebook ? iframe.src = 'http://13.37.232.55/hub' : iframe.classList.add('hidden'); //! URL ESTÁTICA TEMPORAL
-            item.url_iframe_notebook ? iframe.src = 'https://productoonline.thebridge.tech' : iframe.classList.add('hidden'); //! URL ESTÁTICA TEMPORAL
+            // item.url_iframe_notebook ? iframe.src = 'https://productoonline.thebridge.tech' : iframe.classList.add('hidden'); //! URL ESTÁTICA TEMPORAL
+            item.url_iframe_notebook ? iframe.src = 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1' : iframe.classList.add('hidden'); //! URL ESTÁTICA TEMPORAL
 
             // Si no hay iframe de Jupyter Notebook, el vídeo se renderiza en su lugar y no en la card ('article').
             const divVideoNotebook = document.createElement('DIV');
@@ -242,6 +260,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }; //!FUNC-RENDERNOTEBOOK
 
 
+    const renderForm = async () => {
+
+        
+
+    }; //!FUNC-RENDERFORM
+
+
     const buttonsPagination = (id, pills) => {
 
         const nextPage = parseInt(id) + 1;
@@ -277,7 +302,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const id = location.search.replace('?', '');
 
-            return renderNotebook(id);
+            renderNotebook(id);
+
+        } else if (location.href.includes('form')) {
+
+            renderForm()
 
         } else {
 
