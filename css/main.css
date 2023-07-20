@@ -270,13 +270,15 @@ img {
     height: 500px;
 }
 
+/* TOGGLE BUTTON */
+
 .jupyter-notebook button {
     position: absolute;
     top: 0; right: 0;
     display: flex;
     align-items: center;
-    margin: 10px 10px 0 0;
-    color: var(--white);
+    margin: 4px 40px 0 0;
+    color: var(--black);
     z-index: 100;
 }
 
